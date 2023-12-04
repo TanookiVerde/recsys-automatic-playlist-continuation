@@ -19,15 +19,13 @@
 1. Instalando dependências com `pip install -r requirements.txt`
 
 
-## Preparação de Dados
+# Execução
 
 1. Rodar `implementacao-nova/0_processa_dados.ipynb`: Assim ocorrerá a geração dos dados preparados na pasta `dados-processados/`
+1. Rodar `implementacao-nova/1_treinamento_personalized_pagerank.ipynb`: Para gerar os pesos do modelo na pasta `dados-processados/`
+1. Rodar `implementacao-nova/2_avaliacao_personalized_pagerank.ipynb`: Para avaliar o modelo isoladamente no conjunto de teste.
 
 # Planejamento
 
 - Modelo 1: Personalized Random Walk
-   - Entrada: [Playlist Atual]
-   - Saída: [Ranking]
 - Modelo 2: Character-level CNN
-   - Entrada: [Título]
-   - Saída: [Ranking]
