@@ -28,5 +28,8 @@
 
 # Planejamento
 
-- Modelo 1: Personalized Random Walk
+- Modelo 1: Personalized Page Rank
+   - Referências:
+       - "Pixie: A System for Recommending 3+ Billion Items to 200+ Million Users in Real-Time"
+       - "Random Walk with Restart for Automatic Playlist Continuation and Query-Specific Adaptations"
 - Modelo 2: Character-level CNN
