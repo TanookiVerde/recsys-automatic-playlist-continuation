@@ -17,6 +17,7 @@
    - Windows: `env\Scripts\Activate.ps1`
    - Linux: `source env/bin/activate`
 1. Instalando dependências com `pip install -r requirements.txt`
+1. Rodar `python -m spacy download en_core_web_trf`
 
 
 # Execução
