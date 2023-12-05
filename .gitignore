@@ -1,4 +1,6 @@
 dados/spotify_million_playlist_dataset_challenge/*
+dados/spotify_million_playlist_dataset/*
+dados-processados/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
