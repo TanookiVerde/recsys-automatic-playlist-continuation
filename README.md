@@ -17,7 +17,6 @@
    - Windows: `env\Scripts\Activate.ps1`
    - Linux: `source env/bin/activate`
 1. Instalando dependências com `pip install -r requirements.txt`
-1. Rodar `python -m spacy download en_core_web_trf`
 
 
 # Execução
@@ -28,8 +27,8 @@
 
 # Planejamento
 
-- Modelo 1: Personalized Page Rank
+- Modelo: Personalized Page Rank
    - Referências:
        - "Pixie: A System for Recommending 3+ Billion Items to 200+ Million Users in Real-Time"
        - "Random Walk with Restart for Automatic Playlist Continuation and Query-Specific Adaptations"
-- Modelo 2: Character-level CNN
+
