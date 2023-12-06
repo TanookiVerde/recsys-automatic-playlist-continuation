@@ -1,7 +1,7 @@
 # Sistemas de Recomendação - Trabalho Final
 
-- Referência: https://github.com/hojinYang/spotify_recSys_challenge_2018
-- Desafio ACM RecSys: http://www.recsyschallenge.com/2018/
+- Objetivo é implementar e avaliar um modelo Personalized PageRank para Continuação Automática de Playlists
+- O dataset utilizado vem do desafio ACM RecSys: http://www.recsyschallenge.com/2018/
 
 # Setup
 
