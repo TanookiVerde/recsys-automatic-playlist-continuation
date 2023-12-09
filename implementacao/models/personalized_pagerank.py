@@ -2,16 +2,18 @@ import numpy as np
 import dgl
 import torch
 import pickle
+from random import choices
 
 
 class PersonalizedPageRank():
     
-    def __init__(self, scipy_adj_matrix = None, dgl_network = None, visit_target = 1, rank_limit=500, reset_prob=0.0):
+    def __init__(self, scipy_adj_matrix = None, dgl_network = None, visit_target = 1, rank_limit=500, reset_prob=0.0, query_target_size=10):
         assert scipy_adj_matrix != None or dgl_network != None, "Input DGL Network or Scipy Adjacency Matrix"
 
-        self.visit_target   = visit_target
-        self.rank_limit     = rank_limit
-        self.reset_prob     = reset_prob
+        self.visit_target       = visit_target
+        self.rank_limit         = rank_limit
+        self.reset_prob         = reset_prob
+        self.query_target_size  = query_target_size
 
         if scipy_adj_matrix != None:
             self.from_scipy(scipy_adj_matrix)
@@ -42,6 +44,7 @@ class PersonalizedPageRank():
     def from_dgl(self, dgl_network):
         self.network = dgl_network
 
+        self.network.edata['weights'] = self.network.edata['weights'].double()
         pass
 
 
@@ -49,32 +52,35 @@ class PersonalizedPageRank():
         return [self.predict_one(x) for x in X]
 
         
-    def predict_one(self, query):
-        from math import ceil
-
+    def predict_one(self, query, return_rank=False):
         rank = {}
-        visits_per_node = ceil( self.visit_target / len(query) )
+
+        full_query = choices(query, k=self.query_target_size)
 
         paths, _ = dgl.sampling.random_walk(
             g               = self.network, 
-            nodes           = query, 
-            length          = visits_per_node, 
+            nodes           = full_query, 
+            length          = self.visit_target, 
             prob            = 'weights',
             restart_prob    = self.reset_prob
         )
 
         for path in paths:
             for node in path:
+                node_ = int(node)
                 # Remove nodes from Query and -1 (a truncation indicator of DGL)
-                if node == -1 or node in query:
+                if node_ == -1 or node_ in query:
                     continue
 
                 if node in rank.keys():
-                    rank[node] += 1
+                    rank[node_] += 1
                 else:
-                    rank[node] = 1
+                    rank[node_] = 1
 
-        rank = sorted(rank.items(), key=lambda x:x[1], reverse=True)
-        ranked_nodes    = [x for x, _ in rank]
+        rank_order = sorted(rank.items(), key=lambda x:x[1], reverse=True)
+        ranked_nodes    = [x for x, _ in rank_order]
         
-        return ranked_nodes[:self.rank_limit]
+        if return_rank:
+            return ranked_nodes[:self.rank_limit], rank
+        else:
+            return ranked_nodes[:self.rank_limit]
